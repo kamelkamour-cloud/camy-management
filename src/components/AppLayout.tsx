@@ -128,7 +128,10 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
           <button onClick={() => setSidebarOpen(true)} className="p-1 text-muted-foreground">
             <Menu className="w-5 h-5" />
           </button>
-          <h1 className="font-display text-lg font-semibold text-foreground">Maison</h1>
+          <div className="flex items-center gap-2">
+            <img src={logoImg} alt="Camy Luxury" className="w-7 h-7 rounded-full object-cover" />
+            <h1 className="font-display text-lg font-semibold text-foreground">Maison Camy</h1>
+          </div>
           <button onClick={onQuickAdd} className="p-2 bg-primary rounded-full text-primary-foreground">
             <Plus className="w-4 h-4" />
           </button>
