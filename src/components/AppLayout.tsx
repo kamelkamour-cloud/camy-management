@@ -85,9 +85,12 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
               className="fixed inset-y-0 left-0 w-72 bg-sidebar border-r border-border z-50 lg:hidden flex flex-col"
             >
               <div className="flex items-center justify-between p-5 border-b border-border">
-                <div>
-                  <h1 className="font-display text-xl font-semibold text-foreground">Maison</h1>
-                  <p className="text-xs text-muted-foreground mt-0.5">Private Concierge</p>
+                <div className="flex items-center gap-2.5">
+                  <img src={logoImg} alt="Camy Luxury" className="w-8 h-8 rounded-full object-cover" />
+                  <div>
+                    <h1 className="font-display text-lg font-semibold text-foreground">Maison Camy</h1>
+                    <p className="text-xs text-muted-foreground mt-0.5">Private Concierge</p>
+                  </div>
                 </div>
                 <button onClick={() => setSidebarOpen(false)} className="p-1 text-muted-foreground">
                   <X className="w-5 h-5" />
