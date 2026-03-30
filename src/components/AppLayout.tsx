@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logoImg from '@/assets/logo-camy.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -27,8 +28,13 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 border-r border-border bg-sidebar shrink-0">
         <div className="p-6 border-b border-border">
-          <h1 className="font-display text-2xl font-semibold tracking-tight text-foreground">Maison</h1>
-          <p className="text-xs text-muted-foreground mt-1 font-sans">Private Concierge</p>
+          <div className="flex items-center gap-3">
+            <img src={logoImg} alt="Camy Luxury" className="w-9 h-9 rounded-full object-cover" />
+            <div>
+              <h1 className="font-display text-xl font-semibold tracking-tight text-foreground">Maison Camy</h1>
+              <p className="text-xs text-muted-foreground mt-0.5 font-sans">Private Concierge</p>
+            </div>
+          </div>
         </div>
         <nav className="flex-1 p-4 space-y-1">
           {navItems.map(item => (
@@ -79,9 +85,12 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
               className="fixed inset-y-0 left-0 w-72 bg-sidebar border-r border-border z-50 lg:hidden flex flex-col"
             >
               <div className="flex items-center justify-between p-5 border-b border-border">
-                <div>
-                  <h1 className="font-display text-xl font-semibold text-foreground">Maison</h1>
-                  <p className="text-xs text-muted-foreground mt-0.5">Private Concierge</p>
+                <div className="flex items-center gap-2.5">
+                  <img src={logoImg} alt="Camy Luxury" className="w-8 h-8 rounded-full object-cover" />
+                  <div>
+                    <h1 className="font-display text-lg font-semibold text-foreground">Maison Camy</h1>
+                    <p className="text-xs text-muted-foreground mt-0.5">Private Concierge</p>
+                  </div>
                 </div>
                 <button onClick={() => setSidebarOpen(false)} className="p-1 text-muted-foreground">
                   <X className="w-5 h-5" />
@@ -119,7 +128,10 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
           <button onClick={() => setSidebarOpen(true)} className="p-1 text-muted-foreground">
             <Menu className="w-5 h-5" />
           </button>
-          <h1 className="font-display text-lg font-semibold text-foreground">Maison</h1>
+          <div className="flex items-center gap-2">
+            <img src={logoImg} alt="Camy Luxury" className="w-7 h-7 rounded-full object-cover" />
+            <h1 className="font-display text-lg font-semibold text-foreground">Maison Camy</h1>
+          </div>
           <button onClick={onQuickAdd} className="p-2 bg-primary rounded-full text-primary-foreground">
             <Plus className="w-4 h-4" />
           </button>
