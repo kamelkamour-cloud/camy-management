@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FileText, Image, Receipt, Search, Grid, List, Upload } from 'lucide-react';
 import { sampleDocuments, sampleClients, samplePackages, formatDate } from '@/lib/sample-data';
 
