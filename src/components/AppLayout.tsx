@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logoImg from '@/assets/logo-camy.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
