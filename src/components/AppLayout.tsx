@@ -27,8 +27,13 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 border-r border-border bg-sidebar shrink-0">
         <div className="p-6 border-b border-border">
-          <h1 className="font-display text-2xl font-semibold tracking-tight text-foreground">Maison</h1>
-          <p className="text-xs text-muted-foreground mt-1 font-sans">Private Concierge</p>
+          <div className="flex items-center gap-3">
+            <img src={logoImg} alt="Camy Luxury" className="w-9 h-9 rounded-full object-cover" />
+            <div>
+              <h1 className="font-display text-xl font-semibold tracking-tight text-foreground">Maison Camy</h1>
+              <p className="text-xs text-muted-foreground mt-0.5 font-sans">Private Concierge</p>
+            </div>
+          </div>
         </div>
         <nav className="flex-1 p-4 space-y-1">
           {navItems.map(item => (
