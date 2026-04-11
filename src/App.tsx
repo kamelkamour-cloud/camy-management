@@ -15,6 +15,7 @@ import DocumentsPage from "./pages/DocumentsPage";
 import TastePage from "./pages/TastePage";
 import CalendarPage from "./pages/CalendarPage";
 import SettingsPage from "./pages/SettingsPage";
+import ImportPage from "./pages/ImportPage";
 import AuthPage from "./pages/AuthPage";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -51,6 +52,7 @@ function AppRoutes() {
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/taste" element={<TastePage />} />
           <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/import" element={<ImportPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

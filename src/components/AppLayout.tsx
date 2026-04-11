@@ -3,7 +3,7 @@ import logoImg from '@/assets/logo-camy.png';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  LayoutDashboard, MapPin, Users, CreditCard, FileText, Sparkles, CalendarDays, Settings, Plus, Menu, X
+  LayoutDashboard, MapPin, Users, CreditCard, FileText, Sparkles, CalendarDays, Settings, Plus, Menu, X, Upload
 } from 'lucide-react';
 
 const navItems = [
@@ -14,6 +14,7 @@ const navItems = [
   { to: '/documents', icon: FileText, label: 'Documents' },
   { to: '/taste', icon: Sparkles, label: 'Goûts' },
   { to: '/calendar', icon: CalendarDays, label: 'Calendrier' },
+  { to: '/import', icon: Upload, label: 'Importer' },
   { to: '/settings', icon: Settings, label: 'Réglages' },
 ];
 
