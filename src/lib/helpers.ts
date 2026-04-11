@@ -31,5 +31,3 @@ export function statusLabel(status: string): string {
 export function initials(name: string): string {
   return name.split(' ').map(n => n[0]).join('').toUpperCase();
 }
-  return name.split(' ').map(n => n[0]).join('').toUpperCase();
-}
