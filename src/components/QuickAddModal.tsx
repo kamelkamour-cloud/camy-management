@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Camera, Package, Store, Tag, User, ChevronRight, Check, Upload } from 'lucide-react';
+import { X, Camera, Package, Store, Tag, User, ChevronRight, Check } from 'lucide-react';
 import { samplePackages, sampleClients } from '@/lib/sample-data';
 
 type Step = 'package' | 'photo' | 'details' | 'done';
@@ -56,15 +56,13 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
             transition={{ type: 'spring', damping: 28, stiffness: 200 }}
             className="fixed inset-x-0 bottom-0 z-50 bg-card rounded-t-2xl max-h-[90vh] overflow-y-auto lg:inset-auto lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-2xl lg:w-[480px] lg:max-h-[85vh] border border-border shadow-xl"
           >
-            {/* Header */}
             <div className="flex items-center justify-between p-5 border-b border-border">
-              <h2 className="font-display text-xl font-semibold">Quick Add Purchase</h2>
+              <h2 className="font-display text-xl font-semibold">Ajout rapide</h2>
               <button onClick={handleClose} className="p-1 text-muted-foreground hover:text-foreground">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Step indicator */}
             <div className="flex gap-1 px-5 pt-4">
               {(['package', 'photo', 'details'] as Step[]).map((s, i) => (
                 <div
@@ -80,7 +78,7 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
               <AnimatePresence mode="wait">
                 {step === 'package' && (
                   <motion.div key="package" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                    <p className="text-sm text-muted-foreground mb-4">Select or create a trip/package</p>
+                    <p className="text-sm text-muted-foreground mb-4">Sélectionnez ou créez un voyage/package</p>
                     <div className="space-y-2">
                       {samplePackages.filter(p => p.status !== 'completed').map(pkg => (
                         <button
@@ -94,7 +92,7 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
                             <Package className="w-4 h-4 text-muted-foreground" />
                             <div>
                               <p className="text-sm font-medium">{pkg.name}</p>
-                              <p className="text-xs text-muted-foreground">{pkg.city} · {pkg.stores.length} stores</p>
+                              <p className="text-xs text-muted-foreground">{pkg.city} · {pkg.stores.length} boutiques</p>
                             </div>
                           </div>
                           <ChevronRight className="w-4 h-4 text-muted-foreground" />
@@ -105,7 +103,7 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
                         className="w-full flex items-center gap-3 p-3 rounded-lg border border-dashed border-border text-muted-foreground hover:border-primary/30 hover:text-foreground transition-colors text-sm"
                       >
                         <Package className="w-4 h-4" />
-                        Create new package
+                        Créer un nouveau package
                       </button>
                     </div>
                   </motion.div>
@@ -113,21 +111,20 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
 
                 {step === 'photo' && (
                   <motion.div key="photo" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                    <p className="text-sm text-muted-foreground mb-4">Upload a receipt or product photo (optional)</p>
+                    <p className="text-sm text-muted-foreground mb-4">Téléchargez un reçu ou une photo (optionnel)</p>
                     <div className="border-2 border-dashed border-border rounded-xl p-8 flex flex-col items-center gap-3 text-muted-foreground hover:border-primary/30 transition-colors cursor-pointer">
                       <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
                         <Camera className="w-5 h-5" />
                       </div>
-                      <p className="text-sm">Tap to take photo or upload</p>
-                      <p className="text-xs">Receipt, product photo, or screenshot</p>
+                      <p className="text-sm">Appuyez pour prendre une photo ou télécharger</p>
+                      <p className="text-xs">Reçu, photo produit ou capture d'écran</p>
                     </div>
                     <div className="flex gap-3 mt-6">
                       <button onClick={() => setStep('package')} className="flex-1 py-2.5 rounded-lg border border-border text-sm text-muted-foreground hover:bg-muted/50">
-                        Back
+                        Retour
                       </button>
                       <button onClick={() => setStep('details')} className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">
-                        {/* skip or continue */}
-                        Continue
+                        Continuer
                       </button>
                     </div>
                   </motion.div>
@@ -135,25 +132,25 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
 
                 {step === 'details' && (
                   <motion.div key="details" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                    <p className="text-sm text-muted-foreground mb-4">Add item details — fill what you can now</p>
+                    <p className="text-sm text-muted-foreground mb-4">Détails de l'article — remplissez ce que vous pouvez</p>
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 border border-border rounded-lg px-3 py-2.5">
                         <Store className="w-4 h-4 text-muted-foreground shrink-0" />
-                        <input value={store} onChange={e => setStore(e.target.value)} placeholder="Boutique / Store" className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                        <input value={store} onChange={e => setStore(e.target.value)} placeholder="Boutique / Magasin" className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
                       </div>
                       <div className="flex items-center gap-2 border border-border rounded-lg px-3 py-2.5">
                         <Tag className="w-4 h-4 text-muted-foreground shrink-0" />
-                        <input value={brand} onChange={e => setBrand(e.target.value)} placeholder="Brand" className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                        <input value={brand} onChange={e => setBrand(e.target.value)} placeholder="Marque" className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
                       </div>
                       <div className="flex gap-3">
-                        <input value={category} onChange={e => setCategory(e.target.value)} placeholder="Category" className="flex-1 border border-border rounded-lg px-3 py-2.5 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
-                        <input value={cost} onChange={e => setCost(e.target.value)} placeholder="Cost (€)" className="w-28 border border-border rounded-lg px-3 py-2.5 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                        <input value={category} onChange={e => setCategory(e.target.value)} placeholder="Catégorie" className="flex-1 border border-border rounded-lg px-3 py-2.5 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                        <input value={cost} onChange={e => setCost(e.target.value)} placeholder="Coût (€)" className="w-28 border border-border rounded-lg px-3 py-2.5 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
                       </div>
-                      <input value={description} onChange={e => setDescription(e.target.value)} placeholder="Description (optional)" className="w-full border border-border rounded-lg px-3 py-2.5 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+                      <input value={description} onChange={e => setDescription(e.target.value)} placeholder="Description (optionnel)" className="w-full border border-border rounded-lg px-3 py-2.5 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
                       <div className="flex items-center gap-2 border border-border rounded-lg px-3 py-2.5">
                         <User className="w-4 h-4 text-muted-foreground shrink-0" />
                         <select value={clientId} onChange={e => setClientId(e.target.value)} className="flex-1 bg-transparent text-sm outline-none text-muted-foreground">
-                          <option value="">Assign to client (optional)</option>
+                          <option value="">Assigner à une cliente (optionnel)</option>
                           {sampleClients.map(c => (
                             <option key={c.id} value={c.id}>{c.name}</option>
                           ))}
@@ -162,10 +159,10 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
                     </div>
                     <div className="flex gap-3 mt-6">
                       <button onClick={() => setStep('photo')} className="flex-1 py-2.5 rounded-lg border border-border text-sm text-muted-foreground hover:bg-muted/50">
-                        Back
+                        Retour
                       </button>
                       <button onClick={handleSave} className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">
-                        Save Item
+                        Enregistrer
                       </button>
                     </div>
                   </motion.div>
@@ -176,8 +173,8 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
                     <div className="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center">
                       <Check className="w-6 h-6 text-success" />
                     </div>
-                    <p className="font-display text-lg font-semibold">Item saved</p>
-                    <p className="text-sm text-muted-foreground">You can enrich details later</p>
+                    <p className="font-display text-lg font-semibold">Article enregistré</p>
+                    <p className="text-sm text-muted-foreground">Vous pourrez compléter les détails plus tard</p>
                   </motion.div>
                 )}
               </AnimatePresence>

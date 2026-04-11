@@ -22,6 +22,16 @@ const typeColors: Record<string, string> = {
   misc: 'bg-muted text-muted-foreground',
 };
 
+const typeLabels: Record<string, string> = {
+  receipt: 'Reçu',
+  invoice: 'Facture',
+  product_photo: 'Photo produit',
+  payment_proof: 'Preuve de paiement',
+  screenshot: 'Capture d\'écran',
+  proof_of_delivery: 'Preuve de livraison',
+  misc: 'Divers',
+};
+
 export default function DocumentsPage() {
   const [search, setSearch] = useState('');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
@@ -38,25 +48,25 @@ export default function DocumentsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-display text-3xl font-semibold">Documents</h1>
-          <p className="text-sm text-muted-foreground mt-1">{sampleDocuments.length} files</p>
+          <p className="text-sm text-muted-foreground mt-1">{sampleDocuments.length} fichiers</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">
           <Upload className="w-4 h-4" />
-          Upload
+          Télécharger
         </button>
       </div>
 
       <div className="flex gap-3 mb-6">
         <div className="flex-1 flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-card">
           <Search className="w-4 h-4 text-muted-foreground" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search documents..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher des documents..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
         </div>
         <select value={filterType} onChange={e => setFilterType(e.target.value)} className="px-3 py-2 border border-border rounded-lg bg-card text-sm text-muted-foreground outline-none">
-          <option value="">All types</option>
-          <option value="receipt">Receipts</option>
-          <option value="invoice">Invoices</option>
+          <option value="">Tous les types</option>
+          <option value="receipt">Reçus</option>
+          <option value="invoice">Factures</option>
           <option value="product_photo">Photos</option>
-          <option value="payment_proof">Payment Proof</option>
+          <option value="payment_proof">Preuves de paiement</option>
         </select>
         <div className="flex border border-border rounded-lg overflow-hidden">
           <button onClick={() => setViewMode('list')} className={`p-2 ${viewMode === 'list' ? 'bg-primary/10 text-primary' : 'text-muted-foreground'}`}><List className="w-4 h-4" /></button>
@@ -85,7 +95,7 @@ export default function DocumentsPage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className={`text-xs px-2 py-1 rounded-full ${typeColors[doc.type]}`}>{doc.type.replace('_', ' ')}</span>
+                  <span className={`text-xs px-2 py-1 rounded-full ${typeColors[doc.type]}`}>{typeLabels[doc.type] || doc.type}</span>
                   <p className="text-xs text-muted-foreground mt-1">{formatDate(doc.uploadedAt)}</p>
                 </div>
               </div>

@@ -7,14 +7,14 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/trips', icon: MapPin, label: 'Trips' },
-  { to: '/clients', icon: Users, label: 'Clients' },
-  { to: '/payments', icon: CreditCard, label: 'Payments' },
+  { to: '/', icon: LayoutDashboard, label: 'Tableau de bord' },
+  { to: '/trips', icon: MapPin, label: 'Voyages' },
+  { to: '/clients', icon: Users, label: 'Clientes' },
+  { to: '/payments', icon: CreditCard, label: 'Paiements' },
   { to: '/documents', icon: FileText, label: 'Documents' },
-  { to: '/taste', icon: Sparkles, label: 'Taste' },
-  { to: '/calendar', icon: CalendarDays, label: 'Calendar' },
-  { to: '/settings', icon: Settings, label: 'Settings' },
+  { to: '/taste', icon: Sparkles, label: 'Goûts' },
+  { to: '/calendar', icon: CalendarDays, label: 'Calendrier' },
+  { to: '/settings', icon: Settings, label: 'Réglages' },
 ];
 
 const mobileNavItems = navItems.slice(0, 5);
@@ -32,7 +32,7 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
             <img src={logoImg} alt="Camy Luxury" className="w-9 h-9 rounded-full object-cover" />
             <div>
               <h1 className="font-display text-xl font-semibold tracking-tight text-foreground">Maison Camy</h1>
-              <p className="text-xs text-muted-foreground mt-0.5 font-sans">Private Concierge</p>
+              <p className="text-xs text-muted-foreground mt-0.5 font-sans">Concierge Privée</p>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
           >
             <Plus className="w-4 h-4" />
-            Quick Add
+            Ajout rapide
           </button>
         </div>
       </aside>
@@ -89,7 +89,7 @@ export default function AppLayout({ children, onQuickAdd }: { children: React.Re
                   <img src={logoImg} alt="Camy Luxury" className="w-8 h-8 rounded-full object-cover" />
                   <div>
                     <h1 className="font-display text-lg font-semibold text-foreground">Maison Camy</h1>
-                    <p className="text-xs text-muted-foreground mt-0.5">Private Concierge</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Concierge Privée</p>
                   </div>
                 </div>
                 <button onClick={() => setSidebarOpen(false)} className="p-1 text-muted-foreground">

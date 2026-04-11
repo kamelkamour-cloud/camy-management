@@ -4,17 +4,17 @@ export default function SettingsPage() {
   return (
     <div className="p-4 lg:p-8 max-w-3xl mx-auto animate-fade-in">
       <div className="mb-6">
-        <h1 className="font-display text-3xl font-semibold">Settings</h1>
-        <p className="text-sm text-muted-foreground mt-1">Manage your workspace</p>
+        <h1 className="font-display text-3xl font-semibold">Réglages</h1>
+        <p className="text-sm text-muted-foreground mt-1">Gérez votre espace de travail</p>
       </div>
 
       <div className="space-y-3">
         {[
-          { icon: User, label: 'Profile', desc: 'Your personal details and preferences' },
-          { icon: Bell, label: 'Notifications', desc: 'Payment reminders, follow-up alerts' },
-          { icon: Shield, label: 'Privacy & Security', desc: 'Password, two-factor authentication' },
-          { icon: Database, label: 'Data & Backfill', desc: 'Import past data, export records' },
-          { icon: SettingsIcon, label: 'General', desc: 'Currency, language, display preferences' },
+          { icon: User, label: 'Profil', desc: 'Vos informations personnelles et préférences' },
+          { icon: Bell, label: 'Notifications', desc: 'Rappels de paiement, alertes de relance' },
+          { icon: Shield, label: 'Confidentialité & Sécurité', desc: 'Mot de passe, authentification' },
+          { icon: Database, label: 'Données & Historique', desc: 'Importer des données passées, exporter' },
+          { icon: SettingsIcon, label: 'Général', desc: 'Devise, langue, préférences d\'affichage' },
         ].map(item => (
           <button key={item.label} className="w-full flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-primary/20 transition-colors text-left">
             <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
@@ -28,16 +28,15 @@ export default function SettingsPage() {
         ))}
       </div>
 
-      {/* Backfill progress */}
       <section className="mt-8 p-5 rounded-xl border border-border bg-card">
-        <h2 className="font-display text-lg font-semibold mb-3">Data Completeness</h2>
-        <p className="text-sm text-muted-foreground mb-4">Track how much of your history has been documented</p>
+        <h2 className="font-display text-lg font-semibold mb-3">Complétude des données</h2>
+        <p className="text-sm text-muted-foreground mb-4">Suivez la progression de votre historique documenté</p>
         <div className="space-y-4">
           {[
-            { label: 'Client profiles complete', value: 80 },
-            { label: 'Packages documented', value: 60 },
-            { label: 'Payment history entered', value: 45 },
-            { label: 'Documents uploaded', value: 30 },
+            { label: 'Profils clientes complétés', value: 80 },
+            { label: 'Packages documentés', value: 60 },
+            { label: 'Historique de paiements saisi', value: 45 },
+            { label: 'Documents téléchargés', value: 30 },
           ].map(item => (
             <div key={item.label}>
               <div className="flex items-center justify-between mb-1.5">
@@ -50,7 +49,7 @@ export default function SettingsPage() {
             </div>
           ))}
         </div>
-        <button className="mt-4 text-sm text-primary hover:underline">+ Add past data</button>
+        <button className="mt-4 text-sm text-primary hover:underline">+ Ajouter des données passées</button>
       </section>
     </div>
   );

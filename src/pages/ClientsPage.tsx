@@ -17,13 +17,11 @@ function TierBadge({ tier }: { tier: string }) {
 
 function ClientDetail({ client, onBack }: { client: Client; onBack: () => void }) {
   const clientItems = samplePackages.flatMap(p => p.items).filter(i => i.clientId === client.id);
-  const clientPackages = samplePackages.filter(p => p.linkedClientIds.includes(client.id));
 
   return (
     <div className="animate-fade-in">
-      <button onClick={onBack} className="text-sm text-primary hover:underline mb-4">← All Clients</button>
+      <button onClick={onBack} className="text-sm text-primary hover:underline mb-4">← Toutes les clientes</button>
 
-      {/* Header */}
       <div className="flex items-start gap-4 mb-6">
         <div className="w-16 h-16 rounded-full bg-rose-light flex items-center justify-center font-display text-2xl font-semibold text-primary">
           {client.name.split(' ').map(n => n[0]).join('')}
@@ -41,50 +39,46 @@ function ClientDetail({ client, onBack }: { client: Client; onBack: () => void }
         </div>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Total Spend</p><p className="font-display text-xl font-semibold mt-1">{formatCurrency(client.totalSpend)}</p></div>
-        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Paid</p><p className="font-display text-xl font-semibold mt-1 text-success">{formatCurrency(client.totalPaid)}</p></div>
-        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Outstanding</p><p className="font-display text-xl font-semibold mt-1 text-destructive">{formatCurrency(client.outstanding)}</p></div>
-        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Last Purchase</p><p className="font-display text-lg font-semibold mt-1">{client.lastPurchase ? formatDate(client.lastPurchase) : '—'}</p></div>
+        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Total dépensé</p><p className="font-display text-xl font-semibold mt-1">{formatCurrency(client.totalSpend)}</p></div>
+        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Payé</p><p className="font-display text-xl font-semibold mt-1 text-success">{formatCurrency(client.totalPaid)}</p></div>
+        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Impayé</p><p className="font-display text-xl font-semibold mt-1 text-destructive">{formatCurrency(client.outstanding)}</p></div>
+        <div className="stat-card"><p className="text-xs text-muted-foreground uppercase tracking-wider">Dernier achat</p><p className="font-display text-lg font-semibold mt-1">{client.lastPurchase ? formatDate(client.lastPurchase) : '—'}</p></div>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        {/* Style profile */}
         <section className="bg-card rounded-xl border border-border p-5">
-          <h2 className="font-display text-lg font-semibold mb-4">Style Profile</h2>
+          <h2 className="font-display text-lg font-semibold mb-4">Profil de style</h2>
           <div className="space-y-3 text-sm">
             {client.preferredBrands.length > 0 && (
               <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Preferred Brands</p>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Marques préférées</p>
                 <div className="flex flex-wrap gap-1.5">{client.preferredBrands.map(b => <span key={b} className="px-2.5 py-1 bg-secondary rounded-full text-xs">{b}</span>)}</div>
               </div>
             )}
             {client.preferredCategories.length > 0 && (
               <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Categories</p>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Catégories</p>
                 <div className="flex flex-wrap gap-1.5">{client.preferredCategories.map(c => <span key={c} className="px-2.5 py-1 bg-secondary rounded-full text-xs">{c}</span>)}</div>
               </div>
             )}
-            {client.sizes && <div><p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Sizes</p><p>{client.sizes}</p></div>}
-            {client.colorPreferences && <div><p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Colors</p><p>{client.colorPreferences}</p></div>}
-            {client.styleNotes && <div><p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Style Notes</p><p className="text-muted-foreground">{client.styleNotes}</p></div>}
+            {client.sizes && <div><p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Tailles</p><p>{client.sizes}</p></div>}
+            {client.colorPreferences && <div><p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Couleurs</p><p>{client.colorPreferences}</p></div>}
+            {client.styleNotes && <div><p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Notes de style</p><p className="text-muted-foreground">{client.styleNotes}</p></div>}
             {client.budgetBand && <div><p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Budget</p><p>{client.budgetBand}</p></div>}
           </div>
         </section>
 
-        {/* Notes */}
         <section className="bg-card rounded-xl border border-border p-5">
           <h2 className="font-display text-lg font-semibold mb-4">Notes</h2>
-          <p className="text-sm text-muted-foreground">{client.notes || 'No notes yet'}</p>
+          <p className="text-sm text-muted-foreground">{client.notes || 'Aucune note'}</p>
         </section>
 
-        {/* Purchase history */}
         <section className="bg-card rounded-xl border border-border p-5 lg:col-span-2">
-          <h2 className="font-display text-lg font-semibold mb-4">Purchase History</h2>
+          <h2 className="font-display text-lg font-semibold mb-4">Historique d'achats</h2>
           <div className="space-y-3">
             {clientItems.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No purchases yet</p>
+              <p className="text-sm text-muted-foreground">Aucun achat</p>
             ) : clientItems.map(item => (
               <div key={item.id} className="flex items-center justify-between p-3 rounded-lg border border-border">
                 <div>
@@ -94,7 +88,9 @@ function ClientDetail({ client, onBack }: { client: Client; onBack: () => void }
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-semibold">{formatCurrency(item.sellingPrice)}</p>
-                  <p className={`text-xs ${item.paymentStatus === 'paid' ? 'text-success' : 'text-destructive'}`}>{item.paymentStatus.replace('_', ' ')}</p>
+                  <p className={`text-xs ${item.paymentStatus === 'paid' ? 'text-success' : 'text-destructive'}`}>
+                    {item.paymentStatus === 'paid' ? 'Payé' : item.paymentStatus === 'partially_paid' ? 'Partiellement payé' : 'Impayé'}
+                  </p>
                 </div>
               </div>
             ))}
@@ -129,25 +125,24 @@ export default function ClientsPage() {
     <div className="p-4 lg:p-8 max-w-5xl mx-auto animate-fade-in">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-display text-3xl font-semibold">Clients</h1>
-          <p className="text-sm text-muted-foreground mt-1">{sampleClients.length} relationships</p>
+          <h1 className="font-display text-3xl font-semibold">Clientes</h1>
+          <p className="text-sm text-muted-foreground mt-1">{sampleClients.length} relations</p>
         </div>
         <button className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">
-          Add Client
+          Ajouter une cliente
         </button>
       </div>
 
-      {/* Search & filters */}
       <div className="flex gap-3 mb-6">
         <div className="flex-1 flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-card">
           <Search className="w-4 h-4 text-muted-foreground" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by name, brand..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher par nom, marque..." className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
         </div>
         <select value={filterTier} onChange={e => setFilterTier(e.target.value)} className="px-3 py-2 border border-border rounded-lg bg-card text-sm text-muted-foreground outline-none">
-          <option value="">All tiers</option>
+          <option value="">Tous les niveaux</option>
           <option value="vip">VIP</option>
           <option value="active">Active</option>
-          <option value="occasional">Occasional</option>
+          <option value="occasional">Occasionnelle</option>
         </select>
       </div>
 
@@ -172,7 +167,7 @@ export default function ClientsPage() {
             <div className="flex items-center gap-4">
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-semibold">{formatCurrency(client.totalSpend)}</p>
-                {client.outstanding > 0 && <p className="text-xs text-destructive">{formatCurrency(client.outstanding)} due</p>}
+                {client.outstanding > 0 && <p className="text-xs text-destructive">{formatCurrency(client.outstanding)} dû</p>}
               </div>
               <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </div>
