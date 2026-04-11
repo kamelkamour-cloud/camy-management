@@ -1,6 +1,6 @@
 import { TrendingUp, Users, CreditCard, Package, Calendar, ArrowUpRight, Clock } from 'lucide-react';
 import { useClients, useTrips, useItems, useFollowUps, useKeyDates } from '@/hooks/useData';
-import { formatCurrency, formatDate, tierLabel, initials } from '@/lib/helpers';
+import { formatCurrency, formatDate, tierLabel, initials, statusLabel } from '@/lib/helpers';
 import { Link } from 'react-router-dom';
 
 export default function DashboardPage() {
