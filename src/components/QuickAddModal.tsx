@@ -62,7 +62,7 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
             </div>
 
             <div className="p-5">
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="popLayout">
                 {step === 'package' && (
                   <motion.div key="package" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                     <p className="text-sm text-muted-foreground mb-4">Sélectionnez un voyage/package</p>
