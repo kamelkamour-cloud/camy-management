@@ -212,3 +212,66 @@ export function useToggleFollowUp() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['follow_ups'] }),
   });
 }
+
+// Update mutations
+export function useUpdateTrip() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, ...updates }: { id: string } & Partial<Omit<Trip, 'id' | 'user_id' | 'created_at'>>) => {
+      const { error } = await supabase.from('trips').update(updates).eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['trips'] }),
+  });
+}
+
+export function useUpdateItem() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, ...updates }: { id: string } & Partial<Omit<Item, 'id' | 'user_id' | 'created_at'>>) => {
+      const { error } = await supabase.from('items').update(updates).eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['items'] });
+      qc.invalidateQueries({ queryKey: ['trips'] });
+    },
+  });
+}
+
+export function useDeleteItem() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('items').delete().eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['items'] });
+      qc.invalidateQueries({ queryKey: ['trips'] });
+    },
+  });
+}
+
+export function useUpdateClient() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, ...updates }: { id: string } & Partial<Omit<Client, 'id' | 'user_id' | 'created_at'>>) => {
+      const { error } = await supabase.from('clients').update(updates).eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['clients'] }),
+  });
+}
+
+export function useAddTripClient() {
+  const qc = useQueryClient();
+  const { user } = useAuth();
+  return useMutation({
+    mutationFn: async ({ trip_id, client_id }: { trip_id: string; client_id: string }) => {
+      const { error } = await supabase.from('trip_clients').insert({ trip_id, client_id, user_id: user!.id });
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['trip_clients'] }),
+  });
+}
