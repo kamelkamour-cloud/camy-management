@@ -49,7 +49,7 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
       {open && (
         <>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-foreground/20 backdrop-blur-sm z-50" onClick={handleClose} />
-          <motion.div initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={{ type: 'spring', damping: 28, stiffness: 200 }} className="fixed inset-x-0 bottom-0 z-50 bg-card rounded-t-2xl max-h-[90vh] overflow-y-auto lg:inset-auto lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-2xl lg:w-[480px] lg:max-h-[85vh] border border-border shadow-xl">
+          <motion.div initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={{ type: 'spring', damping: 28, stiffness: 200 }} className="fixed inset-x-0 bottom-0 z-[60] bg-card rounded-t-2xl max-h-[90vh] overflow-y-auto lg:inset-auto lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-2xl lg:w-[480px] lg:max-h-[85vh] border border-border shadow-xl">
             <div className="flex items-center justify-between p-5 border-b border-border">
               <h2 className="font-display text-xl font-semibold">Ajout rapide</h2>
               <button onClick={handleClose} className="p-1 text-muted-foreground hover:text-foreground"><X className="w-5 h-5" /></button>
