@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, ChevronRight, Phone, Instagram, Plus, Edit3, X, ShoppingBag } from 'lucide-react';
-import { useClients, useItems, useTrips, useAddClient, useAddItem, useUpdateClient } from '@/hooks/useData';
+import { useClients, useItems, useTrips, useAddClient, useAddItem, useUpdateClient, useDeleteClient } from '@/hooks/useData';
 import { formatCurrency, formatDate, tierLabel, initials } from '@/lib/helpers';
 import { Tables } from '@/integrations/supabase/types';
 import { toast } from 'sonner';
