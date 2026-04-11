@@ -1,43 +1,29 @@
 import React, { useState } from 'react';
 import { FileText, Image, Receipt, Search, Grid, List, Upload } from 'lucide-react';
-import { sampleDocuments, sampleClients, samplePackages, formatDate } from '@/lib/sample-data';
+import { useDocuments, useClients, useTrips } from '@/hooks/useData';
+import { formatDate } from '@/lib/helpers';
 
 const typeIcons: Record<string, React.ReactNode> = {
-  receipt: <Receipt className="w-5 h-5" />,
-  invoice: <FileText className="w-5 h-5" />,
-  product_photo: <Image className="w-5 h-5" />,
-  payment_proof: <FileText className="w-5 h-5" />,
-  screenshot: <Image className="w-5 h-5" />,
-  proof_of_delivery: <FileText className="w-5 h-5" />,
-  misc: <FileText className="w-5 h-5" />,
+  receipt: <Receipt className="w-5 h-5" />, invoice: <FileText className="w-5 h-5" />, product_photo: <Image className="w-5 h-5" />,
+  payment_proof: <FileText className="w-5 h-5" />, screenshot: <Image className="w-5 h-5" />, proof_of_delivery: <FileText className="w-5 h-5" />, misc: <FileText className="w-5 h-5" />,
 };
-
 const typeColors: Record<string, string> = {
-  receipt: 'bg-success/10 text-success',
-  invoice: 'bg-primary/10 text-primary',
-  product_photo: 'bg-accent/20 text-accent-foreground',
-  payment_proof: 'bg-gold/20 text-gold-foreground',
-  screenshot: 'bg-secondary text-secondary-foreground',
-  proof_of_delivery: 'bg-muted text-muted-foreground',
-  misc: 'bg-muted text-muted-foreground',
+  receipt: 'bg-success/10 text-success', invoice: 'bg-primary/10 text-primary', product_photo: 'bg-accent/20 text-accent-foreground',
+  payment_proof: 'bg-gold/20 text-gold-foreground', screenshot: 'bg-secondary text-secondary-foreground', proof_of_delivery: 'bg-muted text-muted-foreground', misc: 'bg-muted text-muted-foreground',
 };
-
 const typeLabels: Record<string, string> = {
-  receipt: 'Reçu',
-  invoice: 'Facture',
-  product_photo: 'Photo produit',
-  payment_proof: 'Preuve de paiement',
-  screenshot: 'Capture d\'écran',
-  proof_of_delivery: 'Preuve de livraison',
-  misc: 'Divers',
+  receipt: 'Reçu', invoice: 'Facture', product_photo: 'Photo produit', payment_proof: 'Preuve de paiement', screenshot: "Capture d'écran", proof_of_delivery: 'Preuve de livraison', misc: 'Divers',
 };
 
 export default function DocumentsPage() {
+  const { data: docs = [], isLoading } = useDocuments();
+  const { data: clients = [] } = useClients();
+  const { data: trips = [] } = useTrips();
   const [search, setSearch] = useState('');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [filterType, setFilterType] = useState('');
 
-  const filtered = sampleDocuments.filter(d => {
+  const filtered = docs.filter(d => {
     const matchSearch = !search || d.name.toLowerCase().includes(search.toLowerCase()) || d.brand?.toLowerCase().includes(search.toLowerCase());
     const matchType = !filterType || d.type === filterType;
     return matchSearch && matchType;
@@ -48,12 +34,9 @@ export default function DocumentsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-display text-3xl font-semibold">Documents</h1>
-          <p className="text-sm text-muted-foreground mt-1">{sampleDocuments.length} fichiers</p>
+          <p className="text-sm text-muted-foreground mt-1">{docs.length} fichiers</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90">
-          <Upload className="w-4 h-4" />
-          Télécharger
-        </button>
+        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90"><Upload className="w-4 h-4" />Télécharger</button>
       </div>
 
       <div className="flex gap-3 mb-6">
@@ -74,29 +57,31 @@ export default function DocumentsPage() {
         </div>
       </div>
 
-      {viewMode === 'list' ? (
+      {isLoading ? (
+        <div className="text-center py-12 text-muted-foreground text-sm">Chargement...</div>
+      ) : filtered.length === 0 ? (
+        <div className="text-center py-12"><p className="text-sm text-muted-foreground">Aucun document</p></div>
+      ) : viewMode === 'list' ? (
         <div className="space-y-2">
           {filtered.map(doc => {
-            const client = doc.clientId ? sampleClients.find(c => c.id === doc.clientId) : null;
-            const pkg = doc.packageId ? samplePackages.find(p => p.id === doc.packageId) : null;
+            const client = doc.client_id ? clients.find(c => c.id === doc.client_id) : null;
+            const trip = doc.trip_id ? trips.find(t => t.id === doc.trip_id) : null;
             return (
               <div key={doc.id} className="flex items-center justify-between p-4 rounded-lg border border-border bg-card hover:border-primary/20 transition-colors cursor-pointer">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${typeColors[doc.type]}`}>
-                    {typeIcons[doc.type]}
-                  </div>
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${typeColors[doc.type]}`}>{typeIcons[doc.type]}</div>
                   <div>
                     <p className="text-sm font-medium">{doc.name}</p>
                     <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground">
                       {client && <span>{client.name}</span>}
-                      {pkg && <span>· {pkg.name}</span>}
+                      {trip && <span>· {trip.name}</span>}
                       {doc.brand && <span>· {doc.brand}</span>}
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
                   <span className={`text-xs px-2 py-1 rounded-full ${typeColors[doc.type]}`}>{typeLabels[doc.type] || doc.type}</span>
-                  <p className="text-xs text-muted-foreground mt-1">{formatDate(doc.uploadedAt)}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{formatDate(doc.uploaded_at)}</p>
                 </div>
               </div>
             );
@@ -110,7 +95,7 @@ export default function DocumentsPage() {
                 {React.cloneElement(typeIcons[doc.type] as React.ReactElement, { className: 'w-8 h-8' })}
               </div>
               <p className="text-sm font-medium truncate">{doc.name}</p>
-              <p className="text-xs text-muted-foreground mt-0.5">{formatDate(doc.uploadedAt)}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{formatDate(doc.uploaded_at)}</p>
             </div>
           ))}
         </div>
