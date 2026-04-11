@@ -85,7 +85,7 @@ export default function DashboardPage() {
                       <p className="text-sm font-medium">{trip.name}</p>
                       <p className="text-xs text-muted-foreground">{trip.city}</p>
                     </div>
-                    <span className="text-xs px-2 py-1 rounded-full bg-warning/10 text-warning font-medium capitalize">{trip.status.replace('_', ' ')}</span>
+                    <span className="text-xs px-2 py-1 rounded-full bg-warning/10 text-warning font-medium capitalize">{statusLabel(trip.status)}</span>
                   </div>
                 </Link>
               ))}
