@@ -18,6 +18,18 @@ export function tierLabel(tier: string): string {
   return labels[tier] || tier;
 }
 
+export function statusLabel(status: string): string {
+  const labels: Record<string, string> = {
+    open: 'Ouvert',
+    in_progress: 'En cours',
+    completed: 'Terminé',
+    cancelled: 'Annulé',
+  };
+  return labels[status] || status;
+}
+
 export function initials(name: string): string {
+  return name.split(' ').map(n => n[0]).join('').toUpperCase();
+}
   return name.split(' ').map(n => n[0]).join('').toUpperCase();
 }
