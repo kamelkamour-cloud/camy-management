@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, ChevronRight, Phone, Instagram, Plus, Edit3, X, ShoppingBag } from 'lucide-react';
+import { Search, ChevronRight, Phone, Instagram, Plus, Edit3, X, ShoppingBag, Trash2 } from 'lucide-react';
 import { useClients, useItems, useTrips, useAddClient, useAddItem, useUpdateClient, useDeleteClient } from '@/hooks/useData';
 import { formatCurrency, formatDate, tierLabel, initials } from '@/lib/helpers';
 import { Tables } from '@/integrations/supabase/types';
@@ -117,7 +117,9 @@ function ClientDetail({ client, onBack }: { client: Client; onBack: () => void }
   const clientItems = allItems.filter(i => i.client_id === client.id);
   const [showPurchase, setShowPurchase] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const updateClient = useUpdateClient();
+  const deleteClient = useDeleteClient();
 
   const [editName, setEditName] = useState(client.name);
   const [editCity, setEditCity] = useState(client.city || '');
@@ -188,6 +190,9 @@ function ClientDetail({ client, onBack }: { client: Client; onBack: () => void }
               <TierBadge tier={client.tier} />
               <button onClick={() => setEditing(true)} className="p-1.5 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted/50">
                 <Edit3 className="w-3.5 h-3.5" />
+              </button>
+              <button onClick={() => setConfirmDelete(true)} className="p-1.5 rounded-lg border border-destructive/30 text-destructive/60 hover:text-destructive hover:bg-destructive/10">
+                <Trash2 className="w-3.5 h-3.5" />
               </button>
             </div>
             <div className="flex items-center gap-4 mt-1.5 text-sm text-muted-foreground">
@@ -264,6 +269,33 @@ function ClientDetail({ client, onBack }: { client: Client; onBack: () => void }
       </div>
 
       {showPurchase && <QuickPurchaseSheet client={client} onClose={() => setShowPurchase(false)} />}
+
+      {confirmDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-foreground/20 backdrop-blur-sm" onClick={() => setConfirmDelete(false)} />
+          <div className="relative bg-card rounded-2xl p-6 w-[90%] max-w-sm border border-border shadow-xl text-center">
+            <Trash2 className="w-10 h-10 text-destructive mx-auto mb-3" />
+            <h3 className="font-display text-lg font-semibold mb-1">Supprimer {client.name} ?</h3>
+            <p className="text-sm text-muted-foreground mb-5">Cette action est irréversible. Tous les achats liés resteront dans le système.</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmDelete(false)} className="flex-1 py-2.5 rounded-xl border border-border text-sm text-muted-foreground">Annuler</button>
+              <button
+                onClick={async () => {
+                  try {
+                    await deleteClient.mutateAsync(client.id);
+                    toast.success(`${client.name} supprimée`);
+                    onBack();
+                  } catch (err: any) { toast.error(err.message); }
+                }}
+                disabled={deleteClient.isPending}
+                className="flex-1 py-2.5 rounded-xl bg-destructive text-destructive-foreground text-sm font-medium hover:bg-destructive/90 disabled:opacity-50"
+              >
+                {deleteClient.isPending ? '...' : 'Supprimer'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
