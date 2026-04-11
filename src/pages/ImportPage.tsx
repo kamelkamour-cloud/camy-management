@@ -238,7 +238,7 @@ export default function ImportPage() {
             {CONFIGS.map(cfg => (
               <a
                 key={cfg.type}
-                href={`/mnt/documents/Template_${cfg.label}.xlsx`}
+                href={`/Template_${cfg.label}.xlsx`}
                 download
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-muted text-sm hover:bg-muted/80 transition-colors"
               >
