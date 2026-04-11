@@ -286,10 +286,10 @@ export function tierLabel(tier: string): string {
   const labels: Record<string, string> = {
     vip: 'VIP',
     active: 'Active',
-    occasional: 'Occasional',
+    occasional: 'Occasionnelle',
     inactive: 'Inactive',
-    friend: 'Friend',
-    family: 'Family',
+    friend: 'Amie',
+    family: 'Famille',
   };
   return labels[tier] || tier;
 }

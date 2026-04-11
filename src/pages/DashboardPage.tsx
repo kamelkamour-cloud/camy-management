@@ -18,7 +18,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div>
         <h1 className="font-display text-3xl lg:text-4xl font-semibold tracking-tight">Bonjour</h1>
-        <p className="text-muted-foreground text-sm mt-1">Here's your business at a glance</p>
+        <p className="text-muted-foreground text-sm mt-1">Voici un aperçu de votre activité</p>
       </div>
 
       {/* KPI Strip */}
@@ -26,28 +26,28 @@ export default function DashboardPage() {
         <div className="stat-card">
           <div className="flex items-center gap-2 text-muted-foreground mb-2">
             <CreditCard className="w-4 h-4" />
-            <span className="text-xs uppercase tracking-wider">Outstanding</span>
+            <span className="text-xs uppercase tracking-wider">Impayés</span>
           </div>
           <p className="font-display text-2xl font-semibold text-destructive">{formatCurrency(totalOutstanding)}</p>
         </div>
         <div className="stat-card">
           <div className="flex items-center gap-2 text-muted-foreground mb-2">
             <TrendingUp className="w-4 h-4" />
-            <span className="text-xs uppercase tracking-wider">Collected</span>
+            <span className="text-xs uppercase tracking-wider">Encaissé</span>
           </div>
           <p className="font-display text-2xl font-semibold text-success">{formatCurrency(totalCollected)}</p>
         </div>
         <div className="stat-card">
           <div className="flex items-center gap-2 text-muted-foreground mb-2">
             <Users className="w-4 h-4" />
-            <span className="text-xs uppercase tracking-wider">Active Clients</span>
+            <span className="text-xs uppercase tracking-wider">Clientes actives</span>
           </div>
           <p className="font-display text-2xl font-semibold">{activeClients}</p>
         </div>
         <div className="stat-card">
           <div className="flex items-center gap-2 text-muted-foreground mb-2">
             <Package className="w-4 h-4" />
-            <span className="text-xs uppercase tracking-wider">Avg Order</span>
+            <span className="text-xs uppercase tracking-wider">Panier moyen</span>
           </div>
           <p className="font-display text-2xl font-semibold">{formatCurrency(avgOrderSize)}</p>
         </div>
@@ -59,9 +59,9 @@ export default function DashboardPage() {
           {/* Outstanding Balances */}
           <section className="bg-card rounded-xl border border-border p-5">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display text-lg font-semibold">Outstanding Balances</h2>
+              <h2 className="font-display text-lg font-semibold">Soldes impayés</h2>
               <Link to="/payments" className="text-xs text-primary hover:underline flex items-center gap-1">
-                View all <ArrowUpRight className="w-3 h-3" />
+                Voir tout <ArrowUpRight className="w-3 h-3" />
               </Link>
             </div>
             <div className="space-y-3">
@@ -87,7 +87,7 @@ export default function DashboardPage() {
             <section className="bg-destructive/5 border border-destructive/20 rounded-xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <AlertCircle className="w-4 h-4 text-destructive" />
-                <h2 className="font-display text-lg font-semibold text-destructive">Overdue Payments</h2>
+                <h2 className="font-display text-lg font-semibold text-destructive">Paiements en retard</h2>
               </div>
               {samplePaymentPlans.filter(pp => pp.installments.some(i => i.status === 'overdue')).map(pp => {
                 const client = sampleClients.find(c => c.id === pp.clientId);
@@ -96,7 +96,7 @@ export default function DashboardPage() {
                   <div key={inst.id} className="flex items-center justify-between py-2">
                     <div>
                       <p className="text-sm font-medium">{client?.name}</p>
-                      <p className="text-xs text-muted-foreground">Due {formatDate(inst.dueDate)}</p>
+                      <p className="text-xs text-muted-foreground">Échéance {formatDate(inst.dueDate)}</p>
                     </div>
                     <span className="text-sm font-semibold text-destructive">{formatCurrency(inst.amount)}</span>
                   </div>
@@ -108,9 +108,9 @@ export default function DashboardPage() {
           {/* Incomplete Packages */}
           <section className="bg-card rounded-xl border border-border p-5">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display text-lg font-semibold">Open Trips</h2>
+              <h2 className="font-display text-lg font-semibold">Voyages en cours</h2>
               <Link to="/trips" className="text-xs text-primary hover:underline flex items-center gap-1">
-                View all <ArrowUpRight className="w-3 h-3" />
+                Voir tout <ArrowUpRight className="w-3 h-3" />
               </Link>
             </div>
             <div className="space-y-3">
@@ -122,14 +122,14 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium">{pkg.name}</p>
-                        <p className="text-xs text-muted-foreground">{pkg.city} · {pkg.items.length} items</p>
+                        <p className="text-xs text-muted-foreground">{pkg.city} · {pkg.items.length} articles</p>
                       </div>
                       <span className="text-xs px-2 py-1 rounded-full bg-warning/10 text-warning font-medium capitalize">{pkg.status.replace('_', ' ')}</span>
                     </div>
                     {(unassigned > 0 || unpaid > 0) && (
                       <div className="flex gap-3 mt-2">
-                        {unassigned > 0 && <span className="text-xs text-muted-foreground">{unassigned} unassigned</span>}
-                        {unpaid > 0 && <span className="text-xs text-destructive">{unpaid} unpaid</span>}
+                        {unassigned > 0 && <span className="text-xs text-muted-foreground">{unassigned} non assigné{unassigned > 1 ? 's' : ''}</span>}
+                        {unpaid > 0 && <span className="text-xs text-destructive">{unpaid} impayé{unpaid > 1 ? 's' : ''}</span>}
                       </div>
                     )}
                   </Link>
@@ -143,7 +143,7 @@ export default function DashboardPage() {
         <div className="space-y-6">
           {/* Follow-ups */}
           <section className="bg-card rounded-xl border border-border p-5">
-            <h2 className="font-display text-lg font-semibold mb-4">Follow-ups Due</h2>
+            <h2 className="font-display text-lg font-semibold mb-4">Relances à faire</h2>
             <div className="space-y-3">
               {pendingFollowUps.map(f => {
                 const client = sampleClients.find(c => c.id === f.clientId);
@@ -163,9 +163,9 @@ export default function DashboardPage() {
           {/* Upcoming Dates */}
           <section className="bg-card rounded-xl border border-border p-5">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display text-lg font-semibold">Key Dates</h2>
+              <h2 className="font-display text-lg font-semibold">Dates clés</h2>
               <Link to="/calendar" className="text-xs text-primary hover:underline flex items-center gap-1">
-                View all <ArrowUpRight className="w-3 h-3" />
+                Voir tout <ArrowUpRight className="w-3 h-3" />
               </Link>
             </div>
             <div className="space-y-3">
@@ -186,7 +186,7 @@ export default function DashboardPage() {
 
           {/* Top clients by spend */}
           <section className="bg-card rounded-xl border border-border p-5">
-            <h2 className="font-display text-lg font-semibold mb-4">Top Clients</h2>
+            <h2 className="font-display text-lg font-semibold mb-4">Meilleures clientes</h2>
             <div className="space-y-3">
               {[...sampleClients].sort((a, b) => b.totalSpend - a.totalSpend).slice(0, 4).map((c, i) => (
                 <div key={c.id} className="flex items-center justify-between py-1">

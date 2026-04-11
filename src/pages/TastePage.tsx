@@ -4,29 +4,29 @@ import { sampleClients, formatCurrency } from '@/lib/sample-data';
 const insights = [
   {
     icon: <Heart className="w-4 h-4" />,
-    title: 'New Bag Arrivals',
-    description: 'Amina, Yasmine, and Kenza typically respond well to new bag launches.',
+    title: 'Nouveautés sacs',
+    description: 'Amina, Yasmine et Kenza réagissent bien aux nouveaux lancements de sacs.',
     clients: ['c1', 'c2', 'c5'],
     color: 'bg-primary/10 text-primary',
   },
   {
     icon: <Gift className="w-4 h-4" />,
-    title: 'Eid Gift Season',
-    description: 'Eid is approaching — Amina and Salma have historically purchased gifts around this time.',
+    title: 'Saison cadeaux Aïd',
+    description: 'L\'Aïd approche — Amina et Salma achètent habituellement des cadeaux à cette période.',
     clients: ['c1', 'c3'],
     color: 'bg-gold/20 text-gold-foreground',
   },
   {
     icon: <TrendingUp className="w-4 h-4" />,
-    title: 'Wedding Season',
-    description: 'Kenza\'s wedding is in June. Major purchase opportunity for jewelry, bags, and evening wear.',
+    title: 'Saison des mariages',
+    description: 'Le mariage de Kenza est en juin. Grande opportunité pour bijoux, sacs et tenues de soirée.',
     clients: ['c5'],
     color: 'bg-success/10 text-success',
   },
   {
     icon: <UserCheck className="w-4 h-4" />,
-    title: 'Re-engage Nadia',
-    description: 'Nadia hasn\'t purchased since September. She loved Celine — share new arrivals.',
+    title: 'Relancer Nadia',
+    description: 'Nadia n\'a pas acheté depuis septembre. Elle adorait Celine — partagez les nouveautés.',
     clients: ['c4'],
     color: 'bg-accent/20 text-accent-foreground',
   },
@@ -36,15 +36,14 @@ export default function TastePage() {
   return (
     <div className="p-4 lg:p-8 max-w-5xl mx-auto animate-fade-in">
       <div className="mb-6">
-        <h1 className="font-display text-3xl font-semibold">Taste & Recommendations</h1>
-        <p className="text-sm text-muted-foreground mt-1">Insights grounded in actual purchase history</p>
+        <h1 className="font-display text-3xl font-semibold">Goûts & Recommandations</h1>
+        <p className="text-sm text-muted-foreground mt-1">Insights basés sur l'historique d'achat réel</p>
       </div>
 
-      {/* Smart prompts */}
       <section className="mb-8">
         <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-gold" />
-          Smart Suggestions
+          Suggestions intelligentes
         </h2>
         <div className="grid lg:grid-cols-2 gap-3">
           {insights.map((insight, i) => (
@@ -67,9 +66,8 @@ export default function TastePage() {
         </div>
       </section>
 
-      {/* Client taste profiles */}
       <section>
-        <h2 className="font-display text-lg font-semibold mb-4">Client Taste Profiles</h2>
+        <h2 className="font-display text-lg font-semibold mb-4">Profils de goûts</h2>
         <div className="space-y-4">
           {sampleClients.map(client => (
             <div key={client.id} className="p-5 rounded-xl border border-border bg-card">
@@ -79,20 +77,20 @@ export default function TastePage() {
                 </div>
                 <div>
                   <p className="text-sm font-medium">{client.name}</p>
-                  <p className="text-xs text-muted-foreground">{client.city} · Total spend: {formatCurrency(client.totalSpend)}</p>
+                  <p className="text-xs text-muted-foreground">{client.city} · Total dépensé : {formatCurrency(client.totalSpend)}</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Brands</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Marques</p>
                   <div className="flex flex-wrap gap-1">{client.preferredBrands.map(b => <span key={b} className="text-xs px-2 py-0.5 bg-secondary rounded-full">{b}</span>)}</div>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Categories</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Catégories</p>
                   <div className="flex flex-wrap gap-1">{client.preferredCategories.map(c => <span key={c} className="text-xs px-2 py-0.5 bg-secondary rounded-full">{c}</span>)}</div>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Colors</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1.5">Couleurs</p>
                   <p className="text-xs text-muted-foreground">{client.colorPreferences || '—'}</p>
                 </div>
                 <div>
