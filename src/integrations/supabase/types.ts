@@ -14,7 +14,459 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clients: {
+        Row: {
+          avatar: string | null
+          budget_band: string | null
+          city: string | null
+          color_preferences: string | null
+          country: string | null
+          created_at: string
+          id: string
+          instagram: string | null
+          last_outreach: string | null
+          last_purchase: string | null
+          name: string
+          notes: string | null
+          outstanding: number
+          preferred_brands: string[] | null
+          preferred_categories: string[] | null
+          sizes: string | null
+          style_notes: string | null
+          tier: string
+          total_paid: number
+          total_spend: number
+          updated_at: string
+          user_id: string
+          whatsapp: string | null
+        }
+        Insert: {
+          avatar?: string | null
+          budget_band?: string | null
+          city?: string | null
+          color_preferences?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          instagram?: string | null
+          last_outreach?: string | null
+          last_purchase?: string | null
+          name: string
+          notes?: string | null
+          outstanding?: number
+          preferred_brands?: string[] | null
+          preferred_categories?: string[] | null
+          sizes?: string | null
+          style_notes?: string | null
+          tier?: string
+          total_paid?: number
+          total_spend?: number
+          updated_at?: string
+          user_id: string
+          whatsapp?: string | null
+        }
+        Update: {
+          avatar?: string | null
+          budget_band?: string | null
+          city?: string | null
+          color_preferences?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          instagram?: string | null
+          last_outreach?: string | null
+          last_purchase?: string | null
+          name?: string
+          notes?: string | null
+          outstanding?: number
+          preferred_brands?: string[] | null
+          preferred_categories?: string[] | null
+          sizes?: string | null
+          style_notes?: string | null
+          tier?: string
+          total_paid?: number
+          total_spend?: number
+          updated_at?: string
+          user_id?: string
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      documents: {
+        Row: {
+          brand: string | null
+          client_id: string | null
+          id: string
+          name: string
+          store: string | null
+          thumbnail: string | null
+          trip_id: string | null
+          type: string
+          uploaded_at: string
+          url: string
+          user_id: string
+        }
+        Insert: {
+          brand?: string | null
+          client_id?: string | null
+          id?: string
+          name: string
+          store?: string | null
+          thumbnail?: string | null
+          trip_id?: string | null
+          type?: string
+          uploaded_at?: string
+          url: string
+          user_id: string
+        }
+        Update: {
+          brand?: string | null
+          client_id?: string | null
+          id?: string
+          name?: string
+          store?: string | null
+          thumbnail?: string | null
+          trip_id?: string | null
+          type?: string
+          uploaded_at?: string
+          url?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      follow_ups: {
+        Row: {
+          client_id: string
+          completed: boolean
+          created_at: string
+          due_date: string
+          id: string
+          note: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          client_id: string
+          completed?: boolean
+          created_at?: string
+          due_date: string
+          id?: string
+          note: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          client_id?: string
+          completed?: boolean
+          created_at?: string
+          due_date?: string
+          id?: string
+          note?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "follow_ups_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      items: {
+        Row: {
+          amount_paid: number
+          brand: string | null
+          category: string | null
+          client_id: string | null
+          cost_price: number
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          is_requested: boolean
+          payment_status: string
+          selling_price: number
+          store: string | null
+          trip_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_paid?: number
+          brand?: string | null
+          category?: string | null
+          client_id?: string | null
+          cost_price?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_requested?: boolean
+          payment_status?: string
+          selling_price?: number
+          store?: string | null
+          trip_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_paid?: number
+          brand?: string | null
+          category?: string | null
+          client_id?: string | null
+          cost_price?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_requested?: boolean
+          payment_status?: string
+          selling_price?: number
+          store?: string | null
+          trip_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "items_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "items_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      key_dates: {
+        Row: {
+          client_id: string | null
+          created_at: string
+          date: string
+          id: string
+          notes: string | null
+          title: string
+          trip_id: string | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          client_id?: string | null
+          created_at?: string
+          date: string
+          id?: string
+          notes?: string | null
+          title: string
+          trip_id?: string | null
+          type?: string
+          user_id: string
+        }
+        Update: {
+          client_id?: string | null
+          created_at?: string
+          date?: string
+          id?: string
+          notes?: string | null
+          title?: string
+          trip_id?: string | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "key_dates_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "key_dates_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          client_id: string
+          created_at: string
+          date: string
+          id: string
+          item_id: string | null
+          method: string | null
+          notes: string | null
+          trip_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          client_id: string
+          created_at?: string
+          date?: string
+          id?: string
+          item_id?: string | null
+          method?: string | null
+          notes?: string | null
+          trip_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          client_id?: string
+          created_at?: string
+          date?: string
+          id?: string
+          item_id?: string | null
+          method?: string | null
+          notes?: string | null
+          trip_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trip_clients: {
+        Row: {
+          client_id: string
+          id: string
+          trip_id: string
+          user_id: string
+        }
+        Insert: {
+          client_id: string
+          id?: string
+          trip_id: string
+          user_id: string
+        }
+        Update: {
+          client_id?: string
+          id?: string
+          trip_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_clients_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_clients_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trips: {
+        Row: {
+          carrier_notes: string | null
+          city: string | null
+          created_at: string
+          date_end: string | null
+          date_start: string | null
+          id: string
+          name: string
+          notes: string | null
+          status: string
+          stores: string[] | null
+          tags: string[] | null
+          total_collected: number
+          total_cost: number
+          total_selling: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          carrier_notes?: string | null
+          city?: string | null
+          created_at?: string
+          date_end?: string | null
+          date_start?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          status?: string
+          stores?: string[] | null
+          tags?: string[] | null
+          total_collected?: number
+          total_cost?: number
+          total_selling?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          carrier_notes?: string | null
+          city?: string | null
+          created_at?: string
+          date_end?: string | null
+          date_start?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          status?: string
+          stores?: string[] | null
+          tags?: string[] | null
+          total_collected?: number
+          total_cost?: number
+          total_selling?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
