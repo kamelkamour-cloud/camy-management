@@ -19,8 +19,8 @@ export default function SettingsPage() {
 
       {user && (
         <div className="mb-6 p-4 rounded-xl border border-border bg-card">
-          <p className="text-sm font-medium">{user.email}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Compte connecté</p>
+          <p className="text-sm font-medium">Maison Camy</p>
+          <p className="text-xs text-muted-foreground mt-0.5">Session active</p>
         </div>
       )}
 
