@@ -25,7 +25,8 @@ function QuickPurchaseSheet({ client, onClose }: { client: Client; onClose: () =
   const activeTrips = trips.filter(t => t.status !== 'completed');
 
   const [step, setStep] = useState<'trip' | 'details'>('trip');
-  const [tripId, setTripId] = useState('');
+  const [tripId, setTripId] = useState<string | null>(null);
+  const [tripChosen, setTripChosen] = useState(false);
   const [brand, setBrand] = useState('');
   const [cost, setCost] = useState('');
   const [selling, setSelling] = useState('');
@@ -33,7 +34,7 @@ function QuickPurchaseSheet({ client, onClose }: { client: Client; onClose: () =
   const [store, setStore] = useState('');
 
   const handleSave = async () => {
-    if (!tripId) return;
+    if (!tripChosen) return;
     try {
       await addItem.mutateAsync({
         trip_id: tripId,
@@ -64,10 +65,17 @@ function QuickPurchaseSheet({ client, onClose }: { client: Client; onClose: () =
         <div className="p-5">
           {step === 'trip' && (
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground mb-3">Dans quel voyage ?</p>
-              {activeTrips.length === 0 && <p className="text-sm text-muted-foreground text-center py-6">Créez d'abord un voyage</p>}
+              <p className="text-sm text-muted-foreground mb-3">Lier à un voyage ? (optionnel)</p>
+              <button onClick={() => { setTripId(null); setTripChosen(true); setStep('details'); }}
+                className="w-full flex items-center justify-between p-3.5 rounded-xl border border-border hover:border-primary/30 text-left transition-colors">
+                <div>
+                  <p className="text-sm font-medium">Sans voyage</p>
+                  <p className="text-xs text-muted-foreground">Achat libre, hors voyage</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              </button>
               {activeTrips.map(trip => (
-                <button key={trip.id} onClick={() => { setTripId(trip.id); setStep('details'); }}
+                <button key={trip.id} onClick={() => { setTripId(trip.id); setTripChosen(true); setStep('details'); }}
                   className="w-full flex items-center justify-between p-3.5 rounded-xl border border-border hover:border-primary/30 text-left transition-colors">
                   <div>
                     <p className="text-sm font-medium">{trip.name}</p>

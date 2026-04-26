@@ -205,7 +205,7 @@ export type Database = {
           payment_status: string
           selling_price: number
           store: string | null
-          trip_id: string
+          trip_id: string | null
           updated_at: string
           user_id: string
         }
@@ -223,7 +223,7 @@ export type Database = {
           payment_status?: string
           selling_price?: number
           store?: string | null
-          trip_id: string
+          trip_id?: string | null
           updated_at?: string
           user_id: string
         }

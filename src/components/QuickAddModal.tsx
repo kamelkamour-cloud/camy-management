@@ -12,7 +12,8 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
   const addItem = useAddItem();
 
   const [step, setStep] = useState<Step>('package');
-  const [selectedTrip, setSelectedTrip] = useState('');
+  const [selectedTrip, setSelectedTrip] = useState<string | null>(null);
+  const [tripChosen, setTripChosen] = useState(false);
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
@@ -20,11 +21,11 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
   const [store, setStore] = useState('');
   const [clientId, setClientId] = useState('');
 
-  const reset = () => { setStep('package'); setSelectedTrip(''); setBrand(''); setCategory(''); setDescription(''); setCost(''); setStore(''); setClientId(''); };
+  const reset = () => { setStep('package'); setSelectedTrip(null); setTripChosen(false); setBrand(''); setCategory(''); setDescription(''); setCost(''); setStore(''); setClientId(''); };
   const handleClose = () => { reset(); onClose(); };
 
   const handleSave = async () => {
-    if (!selectedTrip) return;
+    if (!tripChosen) return;
     try {
       await addItem.mutateAsync({
         trip_id: selectedTrip,
@@ -64,11 +65,21 @@ export default function QuickAddModal({ open, onClose }: { open: boolean; onClos
             <div className="p-5">
                 {step === 'package' && (
                   <div>
-                    <p className="text-sm text-muted-foreground mb-4">Sélectionnez un voyage/package</p>
+                    <p className="text-sm text-muted-foreground mb-4">Lier à un voyage ? (optionnel)</p>
                     <div className="space-y-2">
-                      {activeTrips.length === 0 && <p className="text-sm text-muted-foreground py-4 text-center">Créez d'abord un voyage dans l'onglet Voyages</p>}
+                      <button onClick={() => { setSelectedTrip(null); setTripChosen(true); setStep('photo'); }}
+                        className={`w-full flex items-center justify-between p-3 rounded-lg border transition-colors text-left ${selectedTrip === null && tripChosen ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/30'}`}>
+                        <div className="flex items-center gap-3">
+                          <Package className="w-4 h-4 text-muted-foreground" />
+                          <div>
+                            <p className="text-sm font-medium">Sans voyage</p>
+                            <p className="text-xs text-muted-foreground">Achat libre, hors voyage</p>
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      </button>
                       {activeTrips.map(trip => (
-                        <button key={trip.id} onClick={() => { setSelectedTrip(trip.id); setStep('photo'); }}
+                        <button key={trip.id} onClick={() => { setSelectedTrip(trip.id); setTripChosen(true); setStep('photo'); }}
                           className={`w-full flex items-center justify-between p-3 rounded-lg border transition-colors text-left ${selectedTrip === trip.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/30'}`}>
                           <div className="flex items-center gap-3">
                             <Package className="w-4 h-4 text-muted-foreground" />
